@@ -6,10 +6,10 @@ import Layout from '../Layout.vue'
 import Breadcrumb from '../Components/Breadcrumb.vue';
 import Export from '../Components/Export.vue';
 
-import ModalCreated from './Components/ModalCreated.vue';
-import ModalEdit from './Components/ModalEdit.vue';
-import ModalView from './Components/ModalView.vue';
-import ModalDelete from './Components/ModalDelete.vue';
+import ModalCreated from './components/ModalCreated.vue';
+import ModalEdit from './components/ModalEdit.vue';
+import ModalView from './components/ModalView.vue';
+import ModalDelete from './components/ModalDelete.vue';
 
 const modalOpen = ref(false)
 const modalType = ref(null)
@@ -37,15 +37,16 @@ defineProps({ categories: Object, courses: Object })
         <ModalCreated :categories="categories" /><!-- Modal's Courses end -->
       </div>
       <div>
-        <div v-if="$page.props.flash.message" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md rounded-t-lg mt-3">
-          <div class="flex">
-            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
-            <div>
-              <p class="font-bold">Salvo</p>
-              <p class="text-sm">{{ $page.props.flash.message }}</p>
-            </div>
+        
+      <div v-if="$page.props.flash.message" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md rounded-t-lg mt-3">
+        <div class="flex">
+          <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+          <div>
+            <p class="font-bold">Salvo</p>
+            <p class="text-sm">{{ $page.props.flash.message }}</p>
           </div>
         </div>
+      </div>
 
         <!-- This table component -->
         <div class="flex flex-col mt-3" v-if="courses && courses.data.length > 0">

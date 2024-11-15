@@ -1,10 +1,20 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3'
-import { computed } from 'vue'
-const { props } = usePage()
+import { usePage, router } from '@inertiajs/vue3'
+import { computed, ref, watch } from 'vue'
 
+const { props, url } = usePage()
 const user = computed(() => props.auth.user)
 
+const searchQuery = ref('')
+
+watch(searchQuery, (newQuery) => {
+  router.visit(url, {
+    method: 'get',
+    data: { search: newQuery },
+    preserveState: true,
+    preserveScroll: true
+  })
+})
 </script>
 
 <template>
@@ -12,17 +22,22 @@ const user = computed(() => props.auth.user)
     <nav class="flex justify-between w-full py-2 px-2 relative">
       <div class="relative">
         <svg class="absolute top-[21px] left-3 -translate-y-2/4 text-neutral-600 lucide lucide-search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="search" placeholder="Pesquisar..." class="py-2 px-3 ps-10 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+        <input 
+          type="search" 
+          v-model="searchQuery" 
+          placeholder="Pesquisar..." 
+          class="py-2 px-3 ps-10 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+        >
       </div>
 
       <div class="flex items-center gap-3">
-            <button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-            </button>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </button>
 
-            <p>Ola, {{ user.name }}</p>
+        <p>Olá, {{ user.name }}</p>
 
-            <img :src="'images/default.webp'" class="w-12 h-12 rounded-full" alt="default image">
+        <img :src="'images/default.webp'" class="w-12 h-12 rounded-full" alt="default image">
       </div>
     </nav>
   </header>

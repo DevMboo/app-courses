@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exportação de Cursos</title>
     <style>
-        /* Estilos básicos para o PDF */
         body {
             font-family: Arial, sans-serif;
         }
@@ -14,7 +13,7 @@
             border-collapse: collapse;
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #e1e1e1;
             padding: 8px;
             text-align: left;
         }
@@ -28,7 +27,6 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Título</th>
                 <th>Categoria</th>
                 <th>Descrição</th>
@@ -38,7 +36,6 @@
         <tbody>
             @foreach ($courses as $course)
                 <tr>
-                    <td>{{ $course->id }}</td>
                     <td>{{ $course->title }}</td>
                     <td>{{ $course->category_id }}</td>
                     <td>{{ $course->description }}</td>

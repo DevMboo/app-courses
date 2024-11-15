@@ -13,7 +13,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/export', [ExportController::class, 'export'])->name('export');
 
-    Route::get('/courses', [CoursesController::class, 'index'])->name('courses');
+    // Courses routes
+    Route::get('/courses{search?}', [CoursesController::class, 'index'])->name('courses');
     Route::post('/courses', [CoursesController::class, 'store'])->name('courses.store');
 
     Route::get('/courses/{id}/details/show', [CoursesController::class, 'show'])->name('courses.show');
@@ -21,7 +22,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/{id}/details/edit', [CoursesController::class, 'edit'])->name('courses.edit');
     Route::post('/courses/{id}/details', [CoursesController::class, 'update'])->name('courses.update');
 
-    Route::get('/users', [UsersController::class, 'index']);
+    // Users routes
+    Route::get('/users{search?}', [UsersController::class, 'index'])->name('users');
+    Route::post('/users', [UsersController::class, 'store'])->name('users.store');
+    Route::get('/users/{id}/details/edit', [UsersController::class, 'edit'])->name('users.edit');
 
     Route::get('/loggout', [LoginController::class, 'loggout'])->name('loggout');
+
+    Route::get('/download/{path}', function ($path) {
+        return Storage::disk('public')->download($path);
+    })->name('download.file');
+    
+
 });

@@ -17,7 +17,7 @@ class ExportController extends Controller
             $format = $request->input('format');
             $mode = $request->input('mode');
             
-            ExportDataJob::dispatch($ids, $format, $mode);
+            ExportDataJob::dispatch($ids, $format, $mode, auth()->user()->email);
     
             return response()->json(['status' => 'Exportação iniciada.'], 200);
         } catch (\Exception $e) {

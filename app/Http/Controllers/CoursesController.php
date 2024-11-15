@@ -15,11 +15,14 @@ class CoursesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-
-        $courses = Courses::paginate(10)->through(function ($item) {
+        $courses = Courses::when($request->input('search'), function ($query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+                         ->orWhere('description', 'like', '%' . $search . '%')
+                         ->orWhere('price', 'like', '%' . $search . '%');
+        })->paginate(10)->through(function ($item) {
             return [
                 'id' => $item->id,
                 'title' => $item->title,

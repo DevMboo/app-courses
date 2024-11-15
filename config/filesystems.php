@@ -45,6 +45,32 @@ return [
             'throw' => false,
         ],
 
+        'excel' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/excel'),
+            'visibility' => 'public',
+        ],
+
+        'pdf' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pdf'),
+            'visibility' => 'public',
+        ],
+
+        'public_excel' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/excel'),
+            'url' => env('APP_URL').'/storage/excel',
+            'visibility' => 'public',
+        ],
+
+        'public_pdf' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pdf'),
+            'url' => env('APP_URL').'/storage/pdf',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
