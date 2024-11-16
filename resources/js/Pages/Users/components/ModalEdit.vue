@@ -11,7 +11,7 @@ const props = defineProps({
     userId: {
         type: Number,
         required: true
-    },
+    }
 })
 
 const isOpen = ref(true)

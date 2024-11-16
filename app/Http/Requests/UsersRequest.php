@@ -49,12 +49,27 @@ class UsersRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        
+        $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|min:10',
-            'password' => 'required|string|min:8|max:255',
-            'confirm_password' => 'required|string|min:8|max:255|same:password',
-            'avatar' => 'nullable|mimes:jpeg,png,jpg|max:10048'
+            'avatar' => 'nullable|mimes:jpeg,png,jpg|max:10048',
         ];
+
+        if ($this->routeIs('users.store')) {
+            $rules['email'] = 'required|string|email|max:255|unique:users,email';
+            $rules['password'] = 'required|string|min:8|max:255';
+            $rules['confirm_password'] = 'required|string|min:8|max:255|same:password';
+        }
+    
+        if ($this->routeIs('users.update')) {
+            $rules['email'] = 'sometimes|string|email|max:255|unique:users,email,' . $this->route('id');
+            
+            if ($this->filled('password')) {
+                $rules['password'] = 'string|min:8|max:255';
+                $rules['confirm_password'] = 'string|min:8|max:255|same:password';
+            }
+        }
+    
+        return $rules;
     }
 }

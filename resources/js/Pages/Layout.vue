@@ -9,7 +9,7 @@ const isAuthenticated = props.auth.user
 
 <template>
   <div class="flex gap-3">
-    <SideBar  v-if="isAuthenticated" />
+    <SideBar  v-if="isAuthenticated && isAuthenticated.is_admin" />
     <main class="w-full">
       <Header  v-if="isAuthenticated" />
       <article class="bg-neutral-100 rounded-s-xl h-screen px-2">

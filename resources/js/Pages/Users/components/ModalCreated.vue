@@ -34,6 +34,8 @@ const handleSubmit = () => {
     }
   });
 }
+
+defineProps({ admin: Boolean });
 </script>
 
 
@@ -70,7 +72,7 @@ const handleSubmit = () => {
                                     <div class="text-red-600 text-xs" v-if="form.errors.name">{{ form.errors.name }}
                                     </div>
                                 </div>
-                                <div class="col-span-3">
+                                <div class="col-span-3" v-if="admin">
                                     <label for="is_admin">Tipo de usuário*</label>
                                     <select name="is_admin" id="is_admin" v-model="form.is_admin"
                                         class="mr-2.5 mb-2 h-full max-h-[44px] w-full rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-950 placeholder:text-zinc-400 focus:outline-0 focus:ring-2 ring-blue-600">

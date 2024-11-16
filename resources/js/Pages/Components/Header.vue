@@ -1,11 +1,12 @@
 <script setup>
-import { usePage, router } from '@inertiajs/vue3'
+import { usePage, router, Link } from '@inertiajs/vue3'
 import { computed, ref, watch } from 'vue'
 
 const { props, url } = usePage()
 const user = computed(() => props.auth.user)
 
 const searchQuery = ref('')
+const open = ref(false)
 
 watch(searchQuery, (newQuery) => {
   router.visit(url, {
@@ -37,7 +38,18 @@ watch(searchQuery, (newQuery) => {
 
         <p>Olá, {{ user.name }}</p>
 
-        <img :src="'images/default.webp'" class="w-12 h-12 rounded-full" alt="default image">
+        <div class="relative">
+          <img :src="'images/default.webp'" @click="open = !open" class="w-12 h-12 rounded-full" alt="default image">
+          <div v-if="open" @click.outside="open = false" class="absolute right-0 mt-2 w-[200px] bg-white border border-gray-100 rounded-lg shadow-lg z-10">
+            <ul class="text-sm">
+              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <Link href="/loggout">
+                  Desconectar
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
   </header>

@@ -1,7 +1,7 @@
-
 <script setup>
 import { ref } from 'vue'
 import Layout from '../Layout.vue'
+import Paginator from '../Components/Paginator.vue';
 import Breadcrumb from '../Components/Breadcrumb.vue';
 
 import ModalCreated from './components/ModalCreated.vue';
@@ -27,7 +27,7 @@ defineProps({ users: Object })
 
       <div class="flex justify-end gap-2">
         <!-- Modal's Courses start -->
-        <ModalCreated /><!-- Modal's Courses end -->
+        <ModalCreated :admin="true" /><!-- Modal's Courses end -->
       </div>
 
       <div v-if="$page.props.flash.message" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md rounded-t-lg mt-3">
@@ -39,7 +39,7 @@ defineProps({ users: Object })
           </div>
         </div>
       </div>
-      
+
       <!-- This table component -->
       <div class="flex flex-col mt-3" v-if="users && users.data.length > 0">
           <div class="overflow-x-auto sm:rounded-lg">
@@ -75,9 +75,10 @@ defineProps({ users: Object })
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
                     <tr v-for="user in users.data" :key="user.id" class="hover:bg-gray-100">
-                      <td class="p-4 w-4">
+                      <td class=" w-4">
                         <div class="flex items-center">
-                          <img :src="user.avatar" class="w-12 h-12 rounded-full">
+                          <img :src="`images/default.webp`" v-if="!user.avatar" class="mx-2 h-12 rounded-full">
+                          <img :src="`storage/${user.avatar}`" v-if="user.avatar" class="mx-2 h-12 rounded-full">
                         </div>
                       </td>
                       <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ user.name }}</td>
@@ -97,6 +98,7 @@ defineProps({ users: Object })
               </div>
             </div>
           </div>
+          <Paginator :links="users.links" />
       </div>
     </div>
   </Layout>
