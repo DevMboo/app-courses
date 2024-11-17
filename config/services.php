@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'asaas' => [
+        'token' => env('ASAAS_API_TOKEN'),
+        'url' => env('ASAAS_API_URL')
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

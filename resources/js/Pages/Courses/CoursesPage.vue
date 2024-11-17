@@ -22,6 +22,13 @@ const openModal = (id, type) => {
   modalOpen.value = true
 }
 
+const formatCurrency = (value) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value);
+};
+
 defineProps({ categories: Object, courses: Object })
 </script>
 
@@ -37,7 +44,7 @@ defineProps({ categories: Object, courses: Object })
         <ModalCreated :categories="categories" /><!-- Modal's Courses end -->
       </div>
       <div>
-        
+
       <div v-if="$page.props.flash.message" class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md rounded-t-lg mt-3">
         <div class="flex">
           <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
@@ -95,7 +102,7 @@ defineProps({ categories: Object, courses: Object })
                         </div>
                       </td>
                       <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ course.title }}</td>
-                      <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">{{ course.price }}</td>
+                      <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap">{{ formatCurrency(course.price) }}</td>
                       <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                         <span v-if="course.status" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">ATIVO</span>
                         <span v-if="!course.status" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">INATIVO</span>

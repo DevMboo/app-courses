@@ -16,13 +16,17 @@ watch(searchQuery, (newQuery) => {
     preserveScroll: true
   })
 })
+
+const logout = () => {
+  router.visit('/loggout', { method: 'get' })
+}
 </script>
 
 <template>
   <header class="w-full mt-3">
     <nav class="flex justify-between w-full py-2 px-2 relative">
       <div class="relative">
-        <svg class="absolute top-[21px] left-3 -translate-y-2/4 text-neutral-600 lucide lucide-search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <svg class="absolute top-[21px] left-3 -translate-y-2/4 text-neutral-600 lucide lucide-search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input 
           type="search" 
           v-model="searchQuery" 
@@ -39,13 +43,16 @@ watch(searchQuery, (newQuery) => {
         <p>Olá, {{ user.name }}</p>
 
         <div class="relative">
-          <img :src="'images/default.webp'" @click="open = !open" class="w-12 h-12 rounded-full" alt="default image">
-          <div v-if="open" @click.outside="open = false" class="absolute right-0 mt-2 w-[200px] bg-white border border-gray-100 rounded-lg shadow-lg z-10">
+          <button>
+            <img :src="'images/default.webp'" @click="open = !open" class="w-12 h-12 rounded-full" alt="default image">
+          </button>
+          <div v-if="open" @click.outside="open = false" class="absolute right-0 mt-2 w-[200px] bg-white border border-gray-100 rounded-lg shadow-lg z-40">
             <ul class="text-sm">
               <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <Link href="/loggout">
-                  Desconectar
-                </Link>
+                <Link href="/payment">Meus pagamentos</Link>
+              </li>
+              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" @click="logout">
+                Desconectar
               </li>
             </ul>
           </div>

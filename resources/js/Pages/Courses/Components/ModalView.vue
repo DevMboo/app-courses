@@ -188,7 +188,7 @@ watch(() => props.courseId, (newCourseId) => {
       </div>
       <div class="flex w-full justify-end gap-2 mt-3">
         <button class="border border-gray-200 hover:bg-neutral-200 py-1.5 px-2 rounded-md"
-          @click="open = false">Voltar</button>
+          @click="closeModal">Voltar</button>
       </div>
     </div>
   </div>
