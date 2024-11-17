@@ -1,4 +1,6 @@
 <script setup>
+import { Head } from '@inertiajs/vue3';
+
 import Layout from '../Layout.vue'
 import Breadcrumb from '../Components/Breadcrumb.vue';
 
@@ -9,6 +11,7 @@ defineProps({ totals: Object })
 
 <template>
   <Layout>
+    <Head title="Dashboard" />
     <div>
       <Breadcrumb title="Dashboard" />
 

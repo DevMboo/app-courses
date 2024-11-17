@@ -147,42 +147,7 @@ watch(() => props.courseId, (newCourseId) => {
                                                 </label>
                                             </div>
                                         </div>
-
-                                        <div class="col-span-3">
-                                            <div
-                                                class="border border-gray-200 flex items-center h-14 rounded-lg px-2 gap-2 cursor-pointer hover:bg-gray-100 peer-checked:bg-blue-400 peer-checked:border-blue-600">
-                                                <input type="radio" name="payment_method" disabled id="payment_debit" v-model="form.payment_method"
-                                                    value="debit" class="hidden peer">
-                                                <label for="payment_debit"
-                                                    class="flex items-center gap-2 cursor-pointer peer-checked:text-blue-600 peer-checked:font-semibold w-full">
-                                                    <span
-                                                        class="w-4 h-4 rounded-full flex items-center justify-center peer-checked:border-blue-600">
-                                                        <span
-                                                            class="w-2 h-2 bg-blue-600 rounded-full hidden peer-checked:inline-block"></span>
-                                                    </span>
-                                                    Débito
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-span-3">
-                                            <div
-                                                class="border border-gray-200 flex items-center h-14 rounded-lg px-2 gap-2 cursor-pointer hover:bg-gray-100 peer-checked:bg-blue-400 peer-checked:border-blue-600">
-                                                <input type="radio" name="payment_method" disabled id="payment_credit" v-model="form.payment_method"
-                                                    value="credit" class="hidden peer">
-                                                <label for="payment_credit"
-                                                    class="flex items-center gap-2 cursor-pointer peer-checked:text-blue-600 peer-checked:font-semibold w-full">
-                                                    <span
-                                                        class="w-4 h-4 rounded-full flex items-center justify-center peer-checked:border-blue-600">
-                                                        <span
-                                                            class="w-2 h-2 bg-blue-600 rounded-full hidden peer-checked:inline-block"></span>
-                                                    </span>
-                                                    Crédito
-                                                </label>
-                                            </div>
-                                        </div>
                                     </div>
-
                                 </div>
                                 <div class="col-span-3">
                                     <p class="text-xl font-semibold">Valor: {{ formatCurrency(priceCourse) }}</p>

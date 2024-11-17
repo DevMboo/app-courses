@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
 import Paginator from '../Components/Paginator.vue';
 
 import Layout from '../Layout.vue'
@@ -34,6 +35,7 @@ defineProps({ categories: Object, courses: Object })
 
 <template>
   <Layout>
+    <Head title="Cursos" />
     <div>
       <Breadcrumb title="Cursos" />
 

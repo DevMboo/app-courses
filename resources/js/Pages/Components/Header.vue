@@ -49,7 +49,7 @@ const logout = () => {
           <div v-if="open" @click.outside="open = false" class="absolute right-0 mt-2 w-[200px] bg-white border border-gray-100 rounded-lg shadow-lg z-40">
             <ul class="text-sm">
               <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                <Link href="/payment">Meus pagamentos</Link>
+                <Link href="/payment">Minhas inscrições</Link>
               </li>
               <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" @click="logout">
                 Desconectar

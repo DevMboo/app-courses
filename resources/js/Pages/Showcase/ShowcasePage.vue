@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
+
 import Layout from '../Layout.vue'
-import Paginator from '../Components/Paginator.vue';
+
 import Breadcrumb from '../Components/Breadcrumb.vue';
 import ModalCreated from './components/ModalCreated.vue';
 
@@ -26,6 +28,7 @@ defineProps({ courses: Object })
 
 <template>
     <Layout>
+        <Head title="Vitrine de cursos" />
         <div>
             <Breadcrumb title="Vitrine de cursos"/>
             

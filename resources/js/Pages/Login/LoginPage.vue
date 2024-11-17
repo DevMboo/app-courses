@@ -1,6 +1,6 @@
 <script setup>
 import Layout from '../Layout.vue'
-import { useForm } from '@inertiajs/vue3'
+import { useForm, Head } from '@inertiajs/vue3'
 
 const form = useForm({
   email: null,
@@ -10,6 +10,7 @@ const form = useForm({
 
 <template>
     <Layout>
+        <Head title="Login" />
         <div class="w-full min-h-screen">
             <div class="flex flex-col justify-center items-center bg-white h-[100vh]">
                 <div
