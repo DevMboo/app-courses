@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/users', [UsersController::class, 'store'])->name('users.store');
         Route::get('/users/{id}/details/edit', [UsersController::class, 'edit'])->name('users.edit');
         Route::post('/users/{id}/details', [UsersController::class, 'update'])->name('users.update');
+        Route::post('/users/{id}/destroy', [UsersController::class, 'destroy'])->name('users.destroy');
         
         Route::get('/download/{path}', function ($path) {
             return Storage::disk('public')->download($path);

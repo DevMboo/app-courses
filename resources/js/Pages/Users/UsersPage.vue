@@ -8,6 +8,7 @@ import Breadcrumb from '../Components/Breadcrumb.vue';
 
 import ModalCreated from './components/ModalCreated.vue';
 import ModalEdit from './components/ModalEdit.vue';
+import ModalDelete from './components/ModalDelete.vue';
 
 const modalOpen = ref(false)
 const modalType = ref(null)
@@ -106,6 +107,8 @@ defineProps({ users: Object })
     </div>
   </Layout>
 
+  <!-- Modal Delete start -->
+  <ModalDelete v-if="modalOpen && modalType === 'delete'" :userId="selectedUserId" @close="modalOpen = false" /><!-- Modal Delete end -->
   <!-- Modal Edit start -->
   <ModalEdit v-if="modalOpen && modalType === 'edit'" :userId="selectedUserId" @close="modalOpen = false" /><!-- Modal Edit end -->
 </template>
