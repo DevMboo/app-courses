@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{CoursesController, ExportController, HomeController, ShowcaseController, LoginController, PaymentController, UsersController};
+use App\Http\Controllers\{CoursesController, ExportController, DashboardController, HomeController, ShowcaseController, LoginController, PaymentController, UsersController};
  
-Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'auth'])->name('auth');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
-        Route::get('/home{search?}', [HomeController::class, 'index'])->name('home');
+        Route::get('/dashboard{search?}', [DashboardController::class, 'index'])->name('dashboard');
     
         Route::post('/export', [ExportController::class, 'export'])->name('export');
     

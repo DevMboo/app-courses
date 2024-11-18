@@ -24,7 +24,7 @@ class LoginController extends Controller
                         'password' => $request->input('password')];
 
         if (Auth::attempt($credentials)) {
-            return to_route('home');
+            return to_route('dashboard');
         }
 
         return back()->withErrors([

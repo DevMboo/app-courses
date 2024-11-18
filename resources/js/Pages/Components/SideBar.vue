@@ -20,7 +20,7 @@ const linkClasses = (path) => {
         <h1 class="my-3 text-xl text-neutral-500 text-center">@Marcasite cursos</h1>
         <ul class="flex flex-col gap-y-2">
             <li>
-                <Link class="text-[14px]" href="/home" :class="linkClasses('/home')">
+                <Link class="text-[14px]" href="/dashboard" :class="linkClasses('/dashboard')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-house">

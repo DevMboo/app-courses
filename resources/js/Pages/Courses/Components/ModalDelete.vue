@@ -18,7 +18,7 @@ const closeModal = () => {
   emit('close')
 }
 
-const form = useForm()
+const form = useForm({})
 
 const handleSubmit = () => {
   form.post(`/courses/${props.courseId}/destroy`, {
