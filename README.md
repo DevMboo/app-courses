@@ -22,12 +22,12 @@ Clone o repositório em seu diretório local:
 git clone https://github.com/DevMboo/app-courses
 cd seu-diretorio/app-courses
 
+### 2. Configurar o Ambiente
+Copie o arquivo .env.example para .env, (Deixei dentro dentro do arquivo, o mesmo .env que utilizei na criação do projeto)
+
 ### 2. Instalar as Dependências do PHP
 Instale as dependências do PHP usando o Composer. Abra o terminal no diretório do projeto e execute:
 Execute no terminal: composer install
-
-### 3. Configurar o Ambiente
-Copie o arquivo .env.example para .env, (Deixei dentro dentro do arquivo, o mesmo .env que utilizei na criação do projeto)
 Em seguida, gere a chave da aplicação Laravel:
 Execute no terminal: php artisan key:generate
 
