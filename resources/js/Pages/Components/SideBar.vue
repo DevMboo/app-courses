@@ -17,7 +17,7 @@ const linkClasses = (path) => {
         <div class="mx-auto mt-3 bg-neutral-500 w-20 h-20 flex justify-center items-center rounded-full">
             <img :src="'images/courses.webp'" class="w-16 h-16" alt="Ico application">
         </div>
-        <h1 class="my-3 text-xl text-neutral-500 text-center">@APP COURSES</h1>
+        <h1 class="my-3 text-xl text-neutral-500 text-center">@Marcasite cursos</h1>
         <ul class="flex flex-col gap-y-2">
             <li>
                 <Link class="text-[14px]" href="/home" :class="linkClasses('/home')">

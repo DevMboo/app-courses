@@ -60,7 +60,7 @@ defineProps({ buying: Object, myBuyings: Object })
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-medium">Preço a Ser Pago:</span>
-                                <span class="text-gray-800">{{ formatCurrency(buying.course.price) }}</span>
+                                <span class="text-gray-800">{{ formatCurrency(buying.price) }}</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-medium">Data de Validade:</span>
@@ -73,7 +73,7 @@ defineProps({ buying: Object, myBuyings: Object })
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-medium">Valor Total:</span>
-                                <span class="text-gray-800">{{ formatCurrency(buying.course.price) }}</span>
+                                <span class="text-gray-800">{{ formatCurrency(buying.price) }}</span>
                             </div>
                         </div>
 

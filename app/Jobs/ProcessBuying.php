@@ -104,7 +104,7 @@ class ProcessBuying implements ShouldQueue
     {
         $paymentPayload = [
             'customer' => $customerId,
-            'value' => $this->buying->course->price,
+            'value' => $this->buying->price,
             'billingType' => "PIX",
             'dueDate' => now()->addDays(1)->toDateString(),
             'description' => "Pagamento relacionado à compra #{$this->buying->id}",

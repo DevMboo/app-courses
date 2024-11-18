@@ -43,7 +43,7 @@
                     <td>{{ $data->cpf }}</td>
                     <td>{{ $data->course->title }}</td>
                     <td>{{ $data->user->name }}</td>
-                    <td>{{ $data->course->price }}</td>
+                    <td>{{ $data->price }}</td>
                     <td>{{ $data->status == 'payment_confirmed' ? 'PAGO' : 'EM ABERTO' }}</td>
                     <td>{{ $data->created_at }}</td>
                 </tr>

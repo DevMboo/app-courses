@@ -7,6 +7,7 @@ use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Http;
 
 use App\Models\Buying;
+use App\Models\Courses;
 
 class CheckPaymentStatusJob implements ShouldQueue
 {
@@ -47,6 +48,11 @@ class CheckPaymentStatusJob implements ShouldQueue
                     $payment->update([
                         'status' => 'payment_confirmed',
                     ]);
+
+                    $course = Courses::find($payment->course_id);
+                    if ($course && $course->vacancies > 0) {
+                        $course->decrement('vacancies', 1);
+                    }
                 }
             } else {
                 logger()->error("Erro ao verificar pagamento ID {$payment->id}");

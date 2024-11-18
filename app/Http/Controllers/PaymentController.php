@@ -9,6 +9,7 @@ use App\Models\Buying;
 
 class PaymentController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -34,7 +35,7 @@ class PaymentController extends Controller
                                     'avatar' => $item->course->avatar,
                                     'name' => $item->course->title,
                                     'status' => $item->status,
-                                    'price' => $item->course->price,
+                                    'price' => $item->price,
                                     'qrCode' => $item->pix_qr_code_url,
                                     'created_at' => $item->created_at
                                 ];

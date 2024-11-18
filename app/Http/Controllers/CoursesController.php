@@ -125,5 +125,8 @@ class CoursesController extends Controller
     public function destroy(string $id)
     {
         //
+        Courses::findOrFail($id)->delete();
+
+        return to_route('courses')->with('message', 'Curso deletado com sucesso!');
     }
 }

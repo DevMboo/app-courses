@@ -39,32 +39,43 @@ class ShowcaseController extends Controller
         return Inertia::render('Showcase/ShowcasePage', ['courses' => $courses]);
     }
 
+    public function show(string $id)
+    {
+        $course = Courses::findOrFail($id);
+
+        $buyStatus = Buying::hasBuyingConfirmed($id, auth()->id()) ? true : false;
+
+        return response()->json([
+            'buy' => $buyStatus,
+            'course' => $course
+        ]);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(ShowcaseRequest $request, string $id)
     {
-        //
-        $buying = Buying::where('course_id', $id)->where('user_id', auth()->user()->id)->whereNot('status', 'sent')->first();
-
-        if(!$buying) {
-            $buying = Buying::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'cpf' => $request->input('cpfCnpj'),
-                'phone' => $request->input('phone'),
-                'user_id' => auth()->id(),
-                'course_id' => $id,
-                'status' => 'pending'
-            ]);
-
-            ProcessBuying::dispatch($buying);
-
-            return to_route('payment')->with('message', 'Solicitação de compra criada, seu qrcode está sendo gerado para pagamentos PIX!');
+        if (Buying::hasPendingBuying($id, auth()->id())) {
+            return to_route('showcase')->with('info', 'Você já possuí uma solicitação de compra criada para esse curso, verifique seu perfil e visualize!');
         }
 
-        return to_route('showcase')->with('info', 'Você já possuí uma solicitação de compra criada para esse curso, verifique seu perfil e visualize!');
-        
+        $buying = Buying::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'cpf' => $request->input('cpfCnpj'),
+            'phone' => $request->input('phone'),
+            'price' => Courses::find($id)->price,
+            'user_id' => auth()->id(),
+            'course_id' => $id,
+            'status' => 'pending',
+        ]);
+
+        ProcessBuying::dispatch($buying);
+
+        return to_route('payment')->with('message', 'Solicitação de compra criada, seu qrcode está sendo gerado para pagamentos PIX!');
     }
+
 
 }

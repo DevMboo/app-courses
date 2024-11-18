@@ -19,13 +19,7 @@ class HomeController extends Controller
         $totals['courses'] = Courses::count();
         $totals['students'] = User::where('is_admin', 0)->count();
         $totals['admin'] = User::where('is_admin', 1)->count();
-        $totals['budget'] = Buying::where('status', 'payment_confirmed')
-                            ->whereHas('course')
-                            ->with('course')
-                            ->get()
-                            ->sum(function ($buying) {
-                                return $buying->course->price ?? 0;
-                            });
+        $totals['budget'] = Buying::where('status', 'payment_confirmed')->sum('price');
 
         return $totals;
     }
@@ -35,20 +29,26 @@ class HomeController extends Controller
         return Buying::with('course')
         ->with('user')
         ->whereIn('status', ['payment_created', 'payment_confirmed'])
-        ->whereHas('user', function ($query) use ($request) {
+        ->where(function ($query) use ($request) {
             if (!empty($request->input('search'))) {
-                $query->where('name', 'like', "%".$request->input('search')."%");
+                $searchTerm = "%" . $request->input('search') . "%";
+                $query->whereHas('user', function ($subQuery) use ($searchTerm) {
+                    $subQuery->where('name', 'like', $searchTerm);
+                })->orWhereHas('course', function ($subQuery) use ($searchTerm) {
+                    $subQuery->where('title', 'like', $searchTerm);
+                });
             }
         })
         ->orderBy('created_at', 'desc')
         ->paginate(10)->through(function ($item) {
             return [
+                'id' => $item->id,
                 'email' => $item->email,
                 'avatar' => $item->course->avatar,
                 'user_name' => $item->user->name,
                 'name' => $item->course->title,
                 'status' => $item->status,
-                'price' => $item->course->price,
+                'price' => $item->price,
                 'qrCode' => $item->pix_qr_code_url,
                 'created_at' => $item->created_at
             ];

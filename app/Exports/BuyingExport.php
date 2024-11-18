@@ -40,7 +40,7 @@ class BuyingExport implements FromCollection, WithHeadings, WithMapping {
             $buying->email,
             $buying->cpf,
             $buying->course->title,
-            $buying->course->price,
+            $buying->price,
             $buying->status,
             $buying->created_at ? Carbon::parse($buying->created_at)->format('d/m/Y H:i') : '',
         ];

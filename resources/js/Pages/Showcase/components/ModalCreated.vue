@@ -9,7 +9,12 @@ const previewImage = ref('images/default.webp')
 const isOpen = ref(true)
 
 const nameCourse = ref(null)
+
 const priceCourse = ref(null)
+
+const lockedCourse = ref(false)
+
+const descriptionCourse = ref(null)
 
 const closeModal = () => {
     isOpen.value = false
@@ -61,12 +66,15 @@ const formatCurrency = (value) => {
 
 watch(() => props.courseId, (newCourseId) => {
     if (newCourseId) {
-        axios.get(`/courses/${newCourseId}/details/show`)
+        axios.get(`/showcase/${newCourseId}/details/show`)
             .then((response) => {
-                const course = response.data;
-
+                
+                const course = response.data.course;
+                
+                lockedCourse.value = response.data.buy;
                 nameCourse.value = course.title;
                 priceCourse.value = course.price;
+                descriptionCourse.value = course.description;
                 previewImage.value = course.avatar ? `storage/${course.avatar}` : 'images/default.webp';
 
             })
@@ -82,7 +90,8 @@ watch(() => props.courseId, (newCourseId) => {
     <div v-if="isOpen" class="w-screen min-h-screen bg-[rgba(0,0,0,.5)] z-[1040] fixed top-0 left-0">
         <div class="w-full max-w-[980px] px-2 py-2 mx-auto bg-white rounded-lg my-16 relative">
             <div class="flex justify-between">
-                <h1 class="text-xl font-semibold">Inscrição</h1>
+                <h1 class="text-xl font-semibold" v-if="!lockedCourse">Inscrição</h1>
+                <h1 class="text-xl font-semibold" v-if="lockedCourse">Assistir aula</h1>
                 <button class="px-2 py-2 rounded-full flex justify-center items-center hover:bg-neutral-200"
                     @click="closeModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -93,12 +102,12 @@ watch(() => props.courseId, (newCourseId) => {
                     </svg>
                 </button>
             </div>
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleSubmit" >
                 <div class="">
                     <div class="grid grid-cols-4 divide-x gap-2 mt-4">
                         <div class="col-span-3">
                             <p class="font-semibold mb-3">Detalhes do Usuário</p>
-                            <div class="grid grid-cols-6 gap-2">
+                            <div class="grid grid-cols-6 gap-2" v-if="!lockedCourse">
                                 <div class="col-span-3">
                                     <label for="name">Nome*</label>
                                     <input type="text" placeholder="" id="name" v-model="form.name"
@@ -129,6 +138,10 @@ watch(() => props.courseId, (newCourseId) => {
                                     </div>
                                 </div>
                                 <div class="col-span-6">
+                                    <label for="txt">Descrição do curso</label>
+                                    <p id="txt" class="border border-gray-200 px-2 text-justify rounded-lg">{{ descriptionCourse }}</p>
+                                </div>
+                                <div class="col-span-6">
                                     <p class="font-semibold mb-3">Forma de pagamento</p>
                                     <div class="grid grid-cols-9 gap-2">
                                         <div class="col-span-3">
@@ -153,6 +166,9 @@ watch(() => props.courseId, (newCourseId) => {
                                     <p class="text-xl font-semibold">Valor: {{ formatCurrency(priceCourse) }}</p>
                                 </div>
                             </div>
+                            <div v-if="lockedCourse">
+                                <img :src="'images/default.webp'" class="w-full max-h-[450px]" alt="Default image">
+                            </div>
                         </div>
                         <div class="col-span-1">
                             <p class="font-semibold mb-3 text-center">Poster do curso</p>
@@ -166,15 +182,36 @@ watch(() => props.courseId, (newCourseId) => {
                                 </progress>
                             </div>
                             <p class="text-center mt-2">Curso: {{ nameCourse }}</p>
+                            <div class="px-3" v-if="lockedCourse">
+                                <ul class="space-y-1">
+                                    <li class="py-4 px-2 bg-neutral-200 rounded-lg hover:bg-neutral-100 cursor-pointer flex gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                                        AULA 01
+                                    </li>
+                                    <li class="py-4 px-2 bg-neutral-200 rounded-lg hover:bg-neutral-100 cursor-pointer flex gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                                        AULA 02
+                                    </li>
+                                    <li class="py-4 px-2 bg-neutral-200 rounded-lg hover:bg-neutral-100 cursor-pointer flex gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                                        AULA 03
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex w-full justify-end gap-2 mt-3">
+                <div class="flex w-full justify-end gap-2 mt-3" >
                     <button type="button" class="border border-gray-200 hover:bg-neutral-200 py-1.5 px-2 rounded-md"
                         @click="closeModal">Cancelar</button>
                     <button
+                        v-if="!lockedCourse"
                         class="bg-neutral-800 hover:bg-neutral-900 text-white w-full max-w-[78px] py-1.5 px-2 rounded-md"
                         type="submit">Comprar</button>
+                    <button
+                        v-if="lockedCourse"
+                        class="bg-indigo-800 hover:bg-indigo-900 text-white w-full max-w-[128px] py-1.5 px-2 rounded-md"
+                        type="submit">Assistir aula</button>
                 </div>
             </form>
         </div>
