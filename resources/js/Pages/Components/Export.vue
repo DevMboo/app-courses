@@ -23,7 +23,7 @@ const handleExport = (format) => {
       Exportar
     </button>
 
-    <div v-if="open" @click.outside="open = false" class="absolute mt-2 w-[200px] bg-white border border-gray-100 rounded-lg shadow-lg z-10">
+    <div v-if="open" @click.outside="open = false" class="absolute right-0 mt-2 w-[200px] bg-white border border-gray-100 rounded-lg shadow-lg z-10">
       <ul class="text-sm">
         <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" @click="handleExport('pdf')">
           Exportar PDF

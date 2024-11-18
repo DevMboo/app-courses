@@ -41,7 +41,7 @@ defineProps({ categories: Object, courses: Object })
 
       <div class="flex justify-end gap-2">
         <!-- Filter page start -->
-        <Export :selected="selectedCourses" :mode="'course'" /> <!-- Filter page end -->
+        <Export :selected="selectedCourses" :mode="'courses'" /> <!-- Filter page end -->
         <!-- Modal's Courses start -->
         <ModalCreated :categories="categories" /><!-- Modal's Courses end -->
       </div>

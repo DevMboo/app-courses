@@ -3,11 +3,13 @@
 namespace App\Jobs;
 
 use App\Models\Buying;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+
 use Illuminate\Support\Facades\Http;
 
 class ProcessBuying implements ShouldQueue
@@ -98,9 +100,6 @@ class ProcessBuying implements ShouldQueue
         ]);
     }
 
-    /**
-     * Criar pagamento para o cliente no Asaas.
-     */
     private function createPayment(string $customerId): void
     {
         $paymentPayload = [
@@ -134,8 +133,8 @@ class ProcessBuying implements ShouldQueue
                 $this->buying->update([
                     'status' => 'payment_created',
                     'payment_id' => $paymentId,
-                    'pix_qr_code' => $qrCodeData['payload'], // Código copia e cola
-                    'pix_qr_code_url' => $qrCodeData['encodedImage'], // Imagem do QR Code em Base64
+                    'pix_qr_code' => $qrCodeData['payload'],
+                    'pix_qr_code_url' => $qrCodeData['encodedImage'],
                 ]);
             } else {
                 logger()->error('Falha ao obter QR Code Asaas', [

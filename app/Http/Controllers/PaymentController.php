@@ -21,7 +21,7 @@ class PaymentController extends Controller
 
         $myBuyings = Buying::with('course')
                             ->where('user_id', auth()->id())
-                            ->where('status', 'payment_created')
+                            ->whereIn('status', ['payment_created', 'payment_confirmed'])
                             ->whereHas('course', function ($query) use ($request) {
                                 if (!empty($request->input('search'))) {
                                     $query->where('title', 'like', "%{$request->input('search')}%");

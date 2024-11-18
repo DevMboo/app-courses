@@ -9,7 +9,7 @@ Route::post('/login', [LoginController::class, 'auth'])->name('auth');
 
 Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/home{search?}', [HomeController::class, 'index'])->name('home');
     
         Route::post('/export', [ExportController::class, 'export'])->name('export');
     

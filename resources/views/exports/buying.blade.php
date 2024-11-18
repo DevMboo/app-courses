@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exportação de Cursos</title>
+    <title>Exportação de inscrições</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,25 +23,29 @@
     </style>
 </head>
 <body>
-    <h1>Lista de Cursos</h1>
+    <h1>Lista de inscrições</h1>
     <table>
         <thead>
             <tr>
-                <th>Título</th>
-                <th>Descrição</th>
-                <th>Inicio das incrições</th>
-                <th>Encerramento</th>
+                <th>Email</th>
+                <th>CPF</th>
+                <th>Pedido realizado por</th>
+                <th>Aluno</th>
                 <th>Preço</th>
+                <th>Status</th>
+                <th>Criado</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($datas as $data)
                 <tr>
-                    <td>{{ $data->title }}</td>
-                    <td>{{ $data->description }}</td>
-                    <td>{{ $data->date_ini }}</td>
-                    <td>{{ $data->date_end }}</td>
-                    <td>{{ $data->price }}</td>
+                    <td>{{ $data->email }}</td>
+                    <td>{{ $data->cpf }}</td>
+                    <td>{{ $data->course->title }}</td>
+                    <td>{{ $data->user->name }}</td>
+                    <td>{{ $data->course->price }}</td>
+                    <td>{{ $data->status == 'payment_confirmed' ? 'PAGO' : 'EM ABERTO' }}</td>
+                    <td>{{ $data->created_at }}</td>
                 </tr>
             @endforeach
         </tbody>
