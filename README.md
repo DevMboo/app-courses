@@ -62,6 +62,7 @@ Comandos Úteis
 Rodar o servidor Laravel: php artisan serve
 Rodar o Vite em desenvolvimento: npm run dev
 Compilar assets para produção: npm run build
+Linkar storage path: php artisan storage:link
 Rodar o Queue work: php artisan queue:work
 Rodar o Schedule work: php artisan schedule:work
 
