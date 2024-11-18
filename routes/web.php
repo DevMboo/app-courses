@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{CoursesController, ExportController, HomeController, ShowcaseController, LoginController, PaymentController, UsersController};
  
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'auth'])->name('auth');
 
 Route::middleware('auth')->group(function () {
