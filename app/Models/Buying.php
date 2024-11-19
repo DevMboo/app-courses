@@ -25,7 +25,7 @@ class Buying extends Model
     {
         return Buying::where('course_id', $courseId)
             ->where('user_id', $userId)
-            ->whereNot('status', 'sent')
+            ->whereIn('status', ['sent', 'payment_created', 'payment_confirmed', 'reprocess_payment'])
             ->exists();
     }
 

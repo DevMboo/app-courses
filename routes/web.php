@@ -36,6 +36,9 @@ Route::middleware('auth')->group(function () {
 
     // Payment routes
     Route::get('/payment{search?}', [PaymentController::class, 'index'])->name('payment');
+    Route::get('/payment/{id}/details/edit', [PaymentController::class, 'edit'])->name('payment.edit');
+    Route::post('/payment/{id}/details', [PaymentController::class, 'update'])->name('payment.update');
+    Route::post('/payment/{id}/destroy', [PaymentController::class, 'destroy'])->name('payment.destroy');
     
     // Showcase routes
     Route::get('/showcase{search?}', [ShowcaseController::class, 'index'])->name('showcase');

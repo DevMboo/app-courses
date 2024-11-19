@@ -12,6 +12,11 @@ use App\Models\User;
 class DashboardController extends Controller
 {   
 
+    public function getCourses()
+    {
+        return Courses::all();
+    }
+
     public function totals()
     {
         $totals = [];
@@ -28,7 +33,7 @@ class DashboardController extends Controller
     {
         return Buying::with('course')
         ->with('user')
-        ->whereIn('status', ['payment_created', 'payment_confirmed'])
+        ->whereIn('status', ['payment_created', 'payment_confirmed', 'reprocess_payment', 'canceled'])
         ->where(function ($query) use ($request) {
             if (!empty($request->input('search'))) {
                 $searchTerm = "%" . $request->input('search') . "%";
@@ -61,7 +66,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         //
-        return Inertia::render('Dashboard/DashboardPage', ['totals' => $this->totals(), 'buyings' => $this->getBuyings($request)]);
+        return Inertia::render('Dashboard/DashboardPage', ['totals' => $this->totals(), 'buyings' => $this->getBuyings($request), 'courses' => $this->getCourses()]);
     }
 
 }

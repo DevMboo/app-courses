@@ -12,28 +12,32 @@ use App\Models\Courses;
 
 class CoursesController extends Controller
 {
+
+    public function getCourses($request)
+    {
+        return Courses::when($request->input('search'), function ($query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%')
+                        ->orWhere('price', 'like', '%' . $search . '%');
+            })->paginate(10)->through(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'status' => $item->status,
+                    'price' => $item->price,
+                    'date_ini' => $item->date_ini,
+                    'vacancies' => $item->vacancies
+                ];
+            });
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         //
-        $courses = Courses::when($request->input('search'), function ($query, $search) {
-            return $query->where('title', 'like', '%' . $search . '%')
-                         ->orWhere('description', 'like', '%' . $search . '%')
-                         ->orWhere('price', 'like', '%' . $search . '%');
-        })->paginate(10)->through(function ($item) {
-            return [
-                'id' => $item->id,
-                'title' => $item->title,
-                'status' => $item->status,
-                'price' => $item->price,
-                'date_ini' => $item->date_ini,
-                'vacancies' => $item->vacancies
-            ];
-        });
-
-        return Inertia::render('Courses/CoursesPage', ['categories' => Category::all(), 'courses' => $courses]);
+        return Inertia::render('Courses/CoursesPage', ['categories' => Category::all(), 'courses' => $this->getCourses($request)]);
     }
 
     /**

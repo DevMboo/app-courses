@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('course_id')->nullable();
             $table->decimal('price', total: 8, places: 2)->nullable();
-            $table->enum('status', ['pending', 'sent', 'payment_created', 'payment_confirmed', 'failed'])->default('pending');
+            $table->enum('status', ['pending', 'sent', 'payment_created', 'payment_confirmed', 'failed', 'reprocess_payment', 'canceled'])->default('pending');
             $table->string('payment_id')->nullable();
             $table->text('pix_qr_code')->nullable();
             $table->text('pix_qr_code_url')->nullable();

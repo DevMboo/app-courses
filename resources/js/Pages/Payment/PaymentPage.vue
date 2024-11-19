@@ -16,6 +16,7 @@ defineProps({ buying: Object, myBuyings: Object })
 
 <template>
     <Layout>
+
         <Head title="Minhas inscrições" />
         <div>
             <Breadcrumb title="Minhas inscrições" />
@@ -68,8 +69,10 @@ defineProps({ buying: Object, myBuyings: Object })
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-medium">Status:</span>
-                                <span v-if="buying.status == 'payment_created'" class="text-yellow-800 font-semibold">Pendente</span>
-                                <span v-if="buying.status == 'payment_confirmed'" class="text-green-800 font-semibold">Pagamento efetuado</span>
+                                <span v-if="buying.status == 'payment_created'"
+                                    class="text-yellow-800 font-semibold">Pendente</span>
+                                <span v-if="buying.status == 'payment_confirmed'"
+                                    class="text-green-800 font-semibold">Pagamento efetuado</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600 font-medium">Valor Total:</span>
@@ -137,20 +140,36 @@ defineProps({ buying: Object, myBuyings: Object })
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                            <tr v-for="myBuying in myBuyings.data" :key="myBuying.id" class="hover:bg-gray-100">
+                                            <tr v-for="myBuying in myBuyings.data" :key="myBuying.id"
+                                                class="hover:bg-gray-100">
                                                 <td class="p-4">
                                                     <div class="flex items-center">
-                                                        <img :src="'storage/'+myBuying.avatar" class="w-16 h-16 rounded-full object-cover" alt="Course image">
+                                                        <img :src="'images/default.webp'" v-if="!buying.avatar"
+                                                            class="w-16 h-16 rounded-full object-cover"
+                                                            alt="Course default image">
+                                                        <img :src="'storage/' + buying.avatar" v-if="buying.avatar"
+                                                            class="w-16 h-16 rounded-full object-cover"
+                                                            alt="Course image">
                                                     </div>
                                                 </td>
-                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ myBuying.name }}</td>
-                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                    <span v-if="myBuying.status == 'payment_created'" class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PENDENTE</span>
-                                                    <span v-if="myBuying.status == 'payment_confirmed'" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">PAGAMENTO EFETUADO</span>
-                                             
+                                                <td
+                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                                    {{ myBuying.name }}</td>
+                                                <td
+                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                                    <span v-if="myBuying.status == 'payment_created'"
+                                                        class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PENDENTE</span>
+                                                    <span v-if="myBuying.status == 'payment_confirmed'"
+                                                        class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">PAGAMENTO
+                                                        EFETUADO</span>
+
                                                 </td>
-                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ formatCurrency(myBuying.price) }}</td>
-                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ new Date(myBuying.created_at).toLocaleDateString('pt-BR') }}</td>
+                                                <td
+                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                                    {{ formatCurrency(myBuying.price) }}</td>
+                                                <td
+                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                                    {{ new Date(myBuying.created_at).toLocaleDateString('pt-BR') }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

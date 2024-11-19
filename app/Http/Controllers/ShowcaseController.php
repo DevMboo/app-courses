@@ -24,7 +24,9 @@ class ShowcaseController extends Controller
             return $query->where('title', 'like', '%' . $search . '%')
                          ->orWhere('description', 'like', '%' . $search . '%')
                          ->orWhere('price', 'like', '%' . $search . '%');
-        })->paginate(10)->through(function ($item) {
+        })
+        ->whereNot('status', 0)
+        ->paginate(10)->through(function ($item) {
             return [
                 'id' => $item->id,
                 'avatar' => $item->avatar,

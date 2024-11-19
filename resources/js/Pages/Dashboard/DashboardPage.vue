@@ -7,8 +7,19 @@ import Export from '../Components/Export.vue';
 import Breadcrumb from '../Components/Breadcrumb.vue';
 
 import CardData from './components/CardData.vue';
+import ModalEdit from './components/ModalEdit.vue';
+import ModalDelete from './components/ModalDelete.vue';
 
 const selectedBuying = ref([]);
+const modalOpen = ref(false)
+const modalType = ref(null)
+const selectedBuyingId = ref(null)
+
+const openModal = (id, type) => {
+  selectedBuyingId.value = id
+  modalType.value = type
+  modalOpen.value = true
+}
 
 const formatCurrency = (value) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -17,7 +28,7 @@ const formatCurrency = (value) => {
     }).format(value);
 };
 
-defineProps({ totals: Object, buyings: Object })
+defineProps({ totals: Object, buyings: Object, courses: Object })
 </script>
 
 <template>
@@ -94,6 +105,9 @@ defineProps({ totals: Object, buyings: Object })
                       class="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-200 uppercase">
                       Abertura
                     </th>
+                    <th scope="col"
+                      class="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-200 uppercase">
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -107,7 +121,9 @@ defineProps({ totals: Object, buyings: Object })
                     </td>
                     <td class="p-4">
                       <div class="flex items-center">
-                        <img :src="'storage/' + buying.avatar" class="w-16 h-16 rounded-full object-cover"
+                        <img :src="'images/default.webp'" v-if="!buying.avatar" class="w-16 h-16 rounded-full object-cover"
+                          alt="Course default image">
+                        <img :src="'storage/' + buying.avatar" v-if="buying.avatar" class="w-16 h-16 rounded-full object-cover"
                           alt="Course image">
                       </div>
                     </td>
@@ -116,8 +132,12 @@ defineProps({ totals: Object, buyings: Object })
                       {{ buying.user_name }}
                     </td>
                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
+                      <span v-if="buying.status == 'canceled'"
+                        class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">CANCELADO</span>
                       <span v-if="buying.status == 'payment_created'"
                         class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PENDENTE</span>
+                      <span v-if="buying.status == 'reprocess_payment'"
+                        class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">REPROCESSADO</span>
                       <span v-if="buying.status == 'payment_confirmed'"
                         class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">PAGAMENTO
                         EFETUADO</span>
@@ -127,6 +147,10 @@ defineProps({ totals: Object, buyings: Object })
                       formatCurrency(buying.price) }}</td>
                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{{ new
                       Date(buying.created_at).toLocaleDateString('pt-BR') }}</td>
+                    <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap space-x-2 divide-x">
+                       <button class="text-blue-600 dark:text-blue-500 hover:underline ps-2" @click="openModal(buying.id, 'edit')">Editar</button>
+                       <button v-if="buying.status != 'payment_confirmed'" class="text-blue-600 dark:text-blue-500 hover:underline ps-2" @click="openModal(buying.id, 'delete')">Deletar</button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -142,5 +166,10 @@ defineProps({ totals: Object, buyings: Object })
       </div>
 
     </div>
+
+    <!-- Modal Delete start -->
+    <ModalDelete v-if="modalOpen && modalType === 'delete'" :courses="courses" :buyingId="selectedBuyingId" @close="modalOpen = false" /><!-- Modal Delete end -->
+    <!-- Modal Edit start -->
+    <ModalEdit v-if="modalOpen && modalType === 'edit'" :courses="courses" :buyingId="selectedBuyingId" @close="modalOpen = false" /><!-- Modal Edit end -->
   </Layout>
 </template>

@@ -121,31 +121,36 @@ class ProcessBuying implements ShouldQueue
 
             $paymentId = $paymentData['id'];
 
-            $qrCodeResponse = Http::withHeaders([
-                'access_token' => $this->token,
-                'content-Type' => 'application/json',
-                'accept' => 'application/json',
-            ])->get($this->apiUrl . "payments/{$paymentId}/pixQrCode");
-
-            if ($qrCodeResponse->successful()) {
-                $qrCodeData = $qrCodeResponse->json();
-
-                $this->buying->update([
-                    'status' => 'payment_created',
-                    'payment_id' => $paymentId,
-                    'pix_qr_code' => $qrCodeData['payload'],
-                    'pix_qr_code_url' => $qrCodeData['encodedImage'],
-                ]);
-            } else {
-                logger()->error('Falha ao obter QR Code Asaas', [
-                    'paymentId' => $paymentId,
-                    'response' => $qrCodeResponse->getBody(),
-                ]);
-            }
+            $this->saveQrCodePayment($paymentId);
         } else {
             logger()->error('Falha ao criar pagamento Asaas', [
                 'paymentPayload' => $paymentPayload,
                 'response' => $response->getBody(),
+            ]);
+        }
+    }
+
+    private function saveQrCodePayment(string $paymentId): void
+    {
+        $qrCodeResponse = Http::withHeaders([
+            'access_token' => $this->token,
+            'content-Type' => 'application/json',
+            'accept' => 'application/json',
+        ])->get($this->apiUrl . "payments/{$paymentId}/pixQrCode");
+
+        if ($qrCodeResponse->successful()) {
+            $qrCodeData = $qrCodeResponse->json();
+
+            $this->buying->update([
+                'status' => 'payment_created',
+                'payment_id' => $paymentId,
+                'pix_qr_code' => $qrCodeData['payload'],
+                'pix_qr_code_url' => $qrCodeData['encodedImage'],
+            ]);
+        } else {
+            logger()->error('Falha ao obter QR Code Asaas', [
+                'paymentId' => $paymentId,
+                'response' => $qrCodeResponse->getBody(),
             ]);
         }
     }

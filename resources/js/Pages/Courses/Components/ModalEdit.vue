@@ -9,8 +9,7 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  categories: Array,
-  course: Array
+  categories: Array
 })
 
 const emit = defineEmits()
@@ -263,7 +262,7 @@ const handleSubmit = () => {
         </div>
         <div class="flex w-full justify-end gap-2 mt-3">
           <button class="border border-gray-200 hover:bg-neutral-200 py-1.5 px-2 rounded-md"
-            @click="open = false">Cancelar</button>
+            @click="closeModal">Cancelar</button>
           <button class="bg-neutral-800 hover:bg-neutral-900 text-white w-full max-w-[78px] py-1.5 px-2 rounded-md"
             type="submit">Salvar</button>
         </div>
