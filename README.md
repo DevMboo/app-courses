@@ -71,3 +71,9 @@ Caso você enfrente problemas ao rodar o projeto, verifique:
 As dependências do PHP e do Node.js estão instaladas corretamente.
 O arquivo .env está configurado com as credenciais corretas do banco de dados.
 Se estiver tendo problemas com o Vite no Windows, tente rodar o comando npm run dev no prompt de comando ou PowerShell em vez do Git Bash, pois pode haver questões de compatibilidade.
+
+Queue & Shedule's
+Alguns processos estão em modo de execução asincrono, utilizando o máximo 
+do framework laravel, coisas como exportação de pdf e excel precisa estar com
+o comando php artisan queue:work em execução, para os pagamentos php artisan schedule:work
+precisa estar tambem em execução
