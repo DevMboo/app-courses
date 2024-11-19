@@ -1,6 +1,6 @@
 # Guia de Instalação e Configuração (Windows)
 
-Este é um projeto baseado em Laravel 11, PHP 8.2, Node.js 22, Vue 3, Tailwind CSS, e Flowbite. Siga os passos abaixo para configurar e rodar o projeto localmente no Windows.
+Este é um projeto baseado em Laravel 11, PHP 8.2, Node.js 22, Vue 3, Tailwind e CSS. Siga os passos abaixo para configurar e rodar o projeto localmente no Windows.
 
 ## Requisitos
 
