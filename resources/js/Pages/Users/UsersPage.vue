@@ -104,6 +104,12 @@ defineProps({ users: Object })
           </div>
           <Paginator :links="users.links" />
       </div>
+
+      <!-- This table component empty -->
+      <div v-if="users && users.data.length === 0" class="mt-3 text-gray-700 text-center">
+          <img :src="'images/empty.svg'" class="w-64 h-64 mx-auto" alt="Empty svg">
+          Nenhum usuário criado ainda...
+      </div>
     </div>
   </Layout>
 

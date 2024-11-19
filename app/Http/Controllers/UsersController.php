@@ -20,6 +20,7 @@ class UsersController extends Controller
             return $query->where('name', 'like', '%' . $search . '%')
                          ->orWhere('email', 'like', '%' . $search . '%');
         })
+        ->whereNot('id', auth()->user()->id)
         ->orderBy('created_at', 'DESC')->paginate(10)->through(function ($item) {
             return [
                 'id' => $item->id,
