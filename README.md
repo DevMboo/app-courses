@@ -55,7 +55,7 @@ Laravel 11: Framework PHP para backend.
 PHP 8.2: Versão do PHP utilizada.
 Node.js 22: Ambiente JavaScript para rodar o Vite e outras ferramentas de desenvolvimento.
 Vite: Bundler de front-end rápido.
-Vue 3: Framework para criação de componentes dinâmicos no Laravel.
+Vue 3 (Inertia JS): Framework para criação de componentes dinâmicos no Laravel.
 Tailwind CSS: Framework CSS para construção de interfaces responsivas.
 
 Comandos Úteis
@@ -76,4 +76,4 @@ Queue & Shedule's
 Alguns processos estão em modo de execução asincrono, utilizando o máximo 
 do framework laravel, coisas como exportação de pdf e excel precisa estar com
 o comando php artisan queue:work em execução, para os pagamentos php artisan schedule:work
-precisa estar tambem em execução
+precisa estar tambem em execução.
