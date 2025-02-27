@@ -1,79 +1,132 @@
-# Guia de Instalação e Configuração (Windows)
+# 📌 Guia de Instalação e Configuração (Windows)
 
-Este é um projeto baseado em Laravel 11, PHP 8.2, Node.js 22, Vue 3, Tailwind e CSS. Siga os passos abaixo para configurar e rodar o projeto localmente no Windows.
+Este projeto utiliza **Laravel 11, PHP 8.2, Node.js 22, Vue 3 (Inertia.js), Tailwind CSS e Vite**. Siga os passos abaixo para configurar e rodar o projeto localmente no Windows.
 
-## Requisitos
+## 📌 Requisitos
 
 Antes de começar, certifique-se de que você tenha as seguintes dependências instaladas:
 
-- [PHP 8.2](https://www.php.net/)
-- [Composer](https://getcomposer.org/)
-- [Node.js 22](https://nodejs.org/)
-- [NPM](https://www.npmjs.com/)
-- [Git](https://git-scm.com/)
+- 📌 [PHP 8.2](https://www.php.net/)
+- 📌 [Composer](https://getcomposer.org/)
+- 📌 [Node.js 22](https://nodejs.org/)
+- 📌 [NPM](https://www.npmjs.com/)
+- 📌 [Git](https://git-scm.com/)
 
-Se você não tiver o PHP e o Composer configurados globalmente, pode ser útil usar o [XAMPP](https://www.apachefriends.org/pt_br/index.html) para configurar um ambiente PHP local de maneira mais simples no Windows.
+Se você não tiver **PHP** e **Composer** configurados globalmente, pode ser útil usar o [XAMPP](https://www.apachefriends.org/pt_br/index.html) para configurar um ambiente PHP local de maneira mais simples no Windows.
 
-## Passos para Instalação
+---
 
-### 1. Clonar o Repositório
-Clone o repositório em seu diretório local:
+## 📌 Passos para Instalação
 
-git clone https://github.com/DevMboo/app-courses
-cd seu-diretorio/app-courses
+### 🚀 1. Clonar o Repositório
 
-### 2. Configurar o Ambiente
-Copie o arquivo .env.example para .env, (Deixei dentro dentro do arquivo, o mesmo .env que utilizei na criação do projeto)
+```sh
+git clone https://github.com/DevMboo/app-courses  
+cd app-courses  
+```
 
-### 2. Instalar as Dependências do PHP
-Instale as dependências do PHP usando o Composer. Abra o terminal no diretório do projeto e execute:
-Execute no terminal: composer install
-Em seguida, gere a chave da aplicação Laravel:
-Execute no terminal: php artisan key:generate
+### 🚀 2. Configurar o Ambiente
 
-### 4. Instalar as Dependências do Node.js
-Execute no terminal: npm install
+Copie o arquivo **`.env.example`** para **`.env`**:  
 
-### 5. Rodar as Migrações
+```sh
+cp .env.example .env  
+```
+
+Você pode utilizar o arquivo **`.env`** original presente no repositório para garantir a correta configuração do ambiente.
+
+Em seguida, gere a chave da aplicação:
+
+```sh
+php artisan key:generate  
+```
+
+### 🚀 3. Instalar as Dependências do PHP
+
+Instale as dependências do Laravel com o **Composer**:  
+
+```sh
+composer install  
+```
+
+### 🚀 4. Instalar as Dependências do Node.js
+
+```sh
+npm install  
+```
+
+### 🚀 5. Rodar as Migrações
+
 Execute as migrações para configurar as tabelas do banco de dados:
-Execute no terminal: php artisan migrate
 
-### 6. Execute a seeder
-Crie o usuário teste via seeder 
-Execute no terminal: php artisan db:seed
+```sh
+php artisan migrate  
+```
 
-### 7. Configurar o Vite
-O projeto utiliza o Vite para empacotar e compilar os assets. Para rodar o Vite em modo de desenvolvimento, use o seguinte comando:
-npm run dev
+### 🚀 6. Executar a Seeder
 
-### 8. Inicie o Servidor Local
-Você pode rodar o servidor Laravel localmente usando o Artisan:
-php artisan serve
+Crie o usuário de teste via **seeder**:  
 
-Tecnologias Utilizadas
-Laravel 11: Framework PHP para backend.
-PHP 8.2: Versão do PHP utilizada.
-Node.js 22: Ambiente JavaScript para rodar o Vite e outras ferramentas de desenvolvimento.
-Vite: Bundler de front-end rápido.
-Vue 3 (Inertia JS): Framework para criação de componentes dinâmicos no Laravel.
-Tailwind CSS: Framework CSS para construção de interfaces responsivas.
+```sh
+php artisan db:seed  
+```
 
-Comandos Úteis
-Rodar o servidor Laravel: php artisan serve
-Rodar o Vite em desenvolvimento: npm run dev
-Compilar assets para produção: npm run build
-Linkar storage path: php artisan storage:link
-Rodar o Queue work: php artisan queue:work
-Rodar o Schedule work: php artisan schedule:work
+### 🚀 7. Configurar o Vite
 
-Problemas Conhecidos
-Caso você enfrente problemas ao rodar o projeto, verifique:
-As dependências do PHP e do Node.js estão instaladas corretamente.
-O arquivo .env está configurado com as credenciais corretas do banco de dados.
-Se estiver tendo problemas com o Vite no Windows, tente rodar o comando npm run dev no prompt de comando ou PowerShell em vez do Git Bash, pois pode haver questões de compatibilidade.
+O projeto utiliza **Vite** para empacotar e compilar os assets. Para rodá-lo em modo de desenvolvimento, execute:  
 
-Queue & Shedule's
-Alguns processos estão em modo de execução asincrono, utilizando o máximo 
-do framework laravel, coisas como exportação de pdf e excel precisa estar com
-o comando php artisan queue:work em execução, para os pagamentos php artisan schedule:work
-precisa estar tambem em execução.
+```sh
+npm run dev  
+```
+
+### 🚀 8. Iniciar o Servidor Local
+
+```sh
+php artisan serve  
+```
+
+---
+
+## 📌 Tecnologias Utilizadas
+
+- **Laravel 11** – Framework PHP para backend.  
+- **PHP 8.2** – Versão do PHP utilizada.  
+- **Node.js 22** – Ambiente JavaScript para rodar o **Vite** e outras ferramentas.  
+- **Vite** – Bundler de front-end rápido.  
+- **Vue 3 (Inertia.js)** – Framework para criação de componentes dinâmicos no Laravel.  
+- **Tailwind CSS** – Framework CSS para interfaces responsivas.  
+
+---
+
+## 📌 Comandos Úteis
+
+| Comando | Descrição |  
+|---------|-------------|  
+| `php artisan serve` | Inicia o servidor Laravel |  
+| `npm run dev` | Roda o **Vite** em modo de desenvolvimento |  
+| `npm run build` | Compila os assets para produção |  
+| `php artisan storage:link` | Linka o storage para acessos públicos |  
+| `php artisan queue:work` | Inicia o **Queue Worker** para execução de tarefas em fila |  
+| `php artisan schedule:work` | Inicia o **Scheduler** para execução de tarefas programadas |  
+
+---
+
+## 📌 Problemas Conhecidos
+
+Caso enfrente dificuldades, verifique:
+
+- Se todas as dependências do **PHP** e **Node.js** estão instaladas corretamente.  
+- Se o arquivo **`.env`** está configurado com as credenciais corretas do banco de dados.  
+- Se estiver com problemas no **Vite** no Windows, tente rodar o comando `npm run dev` no **Prompt de Comando** ou **PowerShell**, em vez do **Git Bash**, pois pode haver incompatibilidades.  
+
+---
+
+## 📌 Queue & Schedule Work
+
+O projeto utiliza **queues** e **schedules** para processamento assíncrono de algumas tarefas. Para garantir o funcionamento correto de recursos como **exportação de PDF/Excel** e **pagamentos**, certifique-se de rodar os seguintes comandos em processos separados:
+
+```sh
+php artisan queue:work  
+php artisan schedule:work  
+```
+
